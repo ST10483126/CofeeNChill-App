@@ -1,0 +1,21 @@
+﻿# Azure Functions Secrets (CRITICAL)
+local.settings.json
+
+# .NET Build outputs
+[Bb]in/
+[Oo]bj/
+
+# User-specific Editor Settings
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Environment variables
+.env
+*.env.local
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
