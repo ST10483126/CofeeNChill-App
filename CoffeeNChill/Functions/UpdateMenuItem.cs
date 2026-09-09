@@ -41,7 +41,7 @@ public class UpdateMenuItem
 
             var menuItem = existingItem.Value;
 
-            var updateData = await JsonSerializer.DeserializeAsync<MenuItemEntity>(
+            var updateData = await JsonSerializer.DeserializeAsync<MenuItemDto>(
                 req.Body,
                 new JsonSerializerOptions
                 {
@@ -53,6 +53,13 @@ public class UpdateMenuItem
                 return new BadRequestObjectResult(
                     "Invalid update data.");
             }
+            if (updateData.Price < 0)
+            {
+                return new BadRequestObjectResult(
+                    "Price cannot be negative.");
+            }
+
+            menuItem.Price = updateData.Price;
 
             menuItem.Price = updateData.Price;
             menuItem.IsAvailable = updateData.IsAvailable;

@@ -1,4 +1,5 @@
 ﻿
+using Azure;
 using Azure.Data.Tables;
 using CoffeeNChill.Models;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,7 @@ public class CreateMenuItem
     {
         try
         {
-            var menuItem = await JsonSerializer.DeserializeAsync<MenuItemEntity>(
+            var menuItem = await JsonSerializer.DeserializeAsync<MenuItemDto>(
                 req.Body,
                 new JsonSerializerOptions
                 {
@@ -53,7 +54,23 @@ public class CreateMenuItem
                     "PartitionKey, RowKey and Name are required.");
             }
 
-            await _tableClient.AddEntityAsync(menuItem);
+            if (menuItem.Price < 0)
+            {
+                return new BadRequestObjectResult(
+                    "Price cannot be negative.");
+            }
+
+            var entity = new MenuItemEntity
+            {
+                PartitionKey = menuItem.PartitionKey,
+                RowKey = menuItem.RowKey,
+                Name = menuItem.Name,
+                Description = menuItem.Description,
+                Price = menuItem.Price,
+                IsAvailable = menuItem.IsAvailable
+            };
+
+            await _tableClient.AddEntityAsync(entity);
 
             _logger.LogInformation(
                 "Menu item {RowKey} was created.",
@@ -61,6 +78,11 @@ public class CreateMenuItem
 
             return new OkObjectResult(
                 "Menu item created successfully.");
+        }
+        catch (RequestFailedException ex) when (ex.Status == 409)
+        {
+            return new ConflictObjectResult(
+                "A menu item with this ID already exists.");
         }
         catch (Exception ex)
         {
@@ -72,4 +94,3 @@ public class CreateMenuItem
         }
     }
 }
-

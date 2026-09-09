@@ -31,13 +31,20 @@ public class GetAllMenuItems
     {
         try
         {
-            var menuItems = new List<MenuItemEntity>();
+            var menuItems = new List<MenuItemDto>();
 
             await foreach (var item in _tableClient.QueryAsync<MenuItemEntity>())
             {
-                menuItems.Add(item);
+                menuItems.Add(new MenuItemDto
+                {
+                    PartitionKey = item.PartitionKey,
+                    RowKey = item.RowKey,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Price = item.Price,
+                    IsAvailable = item.IsAvailable
+                });
             }
-
             _logger.LogInformation(
                 "Retrieved {Count} menu items.",
                 menuItems.Count);
