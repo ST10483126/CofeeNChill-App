@@ -1,3 +1,4 @@
+using Azure.Data.Tables;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
@@ -6,15 +7,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry;
 
-var builder = FunctionsApplication.CreateBuilder(args);
+var host = new HostBuilder()
+    .ConfigureFunctionsWebApplication()
+    .ConfigureServices(services =>
+    {
+        // Gets the storage connection string from your local configurations
+        string connectionString = Environment.GetEnvironmentVariable("CoffeeNChillStorageConnection")
+            ?? "UseDevelopmentStorage=true";
 
-builder.ConfigureFunctionsWebApplication();
+        // Connects to the service client and automatically ensure the table exists
+        var tableServiceClient = new TableServiceClient(connectionString);
+        var tableClient = tableServiceClient.GetTableClient("MenuItems");
+        tableClient.CreateIfNotExists();
 
-if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING")))
-{
-    builder.Services.AddOpenTelemetry()
-        .UseFunctionsWorkerDefaults()
-        .UseAzureMonitorExporter();
-}
+        // Registser the table client into dependency injection so the endpoints can use it
+        services.AddSingleton(tableClient);
+    })
+    .Build();
 
-builder.Build().Run();
+host.Run();
