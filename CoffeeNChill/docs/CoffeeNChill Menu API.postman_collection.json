@@ -1,0 +1,195 @@
+{
+  "info": {
+    "_postman_id": "0875332f-b507-413e-9759-92f07b04c057",
+    "name": "CoffeeNChill Menu API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58010815",
+    "_collection_link": "https://go.postman.co/collection/58010815-0875332f-b507-413e-9759-92f07b04c057?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Menu Item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"partitionKey\": \"Cold Drinks\",\r\n    \"rowKey\": \"DRK-002\",\r\n    \"name\": \"Iced Coffee\",\r\n    \"description\": \"Cold brewed coffee served over ice\",\r\n    \"price\": 32.00,\r\n    \"isAvailable\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:7169/api/menu",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7169",
+          "path": [
+            "api",
+            "menu"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Menu Items",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7169/api/menu",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7169",
+          "path": [
+            "api",
+            "menu"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Menu Items By Category",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7169/api/menu/category/Cold%20Drinks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7169",
+          "path": [
+            "api",
+            "menu",
+            "category",
+            "Cold%20Drinks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Menu Item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"price\": 45.00,\r\n    \"isAvailable\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:7169/api/menu/Cold%20Drinks/DRK-002",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7169",
+          "path": [
+            "api",
+            "menu",
+            "Cold%20Drinks",
+            "DRK-002"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Menu Item",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7169/api/menu/Bakery%20and%20Pastries/PAS-001",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7169",
+          "path": [
+            "api",
+            "menu",
+            "Bakery%20and%20Pastries",
+            "PAS-001"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
