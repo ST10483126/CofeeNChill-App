@@ -141,7 +141,7 @@
         }
       ],
       "request": {
-        "method": "DELETE",
+        "method": "PUT",
         "header": [],
         "body": {
           "mode": "raw",
@@ -171,11 +171,26 @@
     },
     {
       "name": "Delete Menu Item",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
       "request": {
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:7169/api/menu/Bakery%20and%20Pastries/PAS-001",
+          "raw": "http://localhost:7169/api/menu/Hot%20Drinks/COF-005",
           "protocol": "http",
           "host": [
             "localhost"
@@ -184,8 +199,8 @@
           "path": [
             "api",
             "menu",
-            "Bakery%20and%20Pastries",
-            "PAS-001"
+            "Hot%20Drinks",
+            "COF-005"
           ]
         }
       },

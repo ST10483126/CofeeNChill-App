@@ -1,6 +1,7 @@
 ﻿
 using Azure;
 using Azure.Data.Tables;
+using CoffeeNChill.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -33,6 +34,27 @@ public class DeleteMenuItem
     {
         try
         {
+            _logger.LogInformation(
+                "Attempting to delete Category={Category}, ID={Id}",
+                category,
+                id);
+
+            // Check if the menu item exists first
+            var response = await _tableClient.GetEntityIfExistsAsync<MenuItemEntity>(
+                category,
+                id);
+
+            if (!response.HasValue)
+            {
+                _logger.LogWarning(
+                    "Menu item {RowKey} was not found.",
+                    id);
+
+                return new NotFoundObjectResult(
+                    "Menu item not found.");
+            }
+
+            // Delete the existing menu item
             await _tableClient.DeleteEntityAsync(
                 category,
                 id);
@@ -44,11 +66,6 @@ public class DeleteMenuItem
             return new OkObjectResult(
                 "Menu item deleted successfully.");
         }
-        catch (RequestFailedException ex) when (ex.Status == 404)
-        {
-            return new NotFoundObjectResult(
-                "Menu item not found.");
-        }
         catch (Exception ex)
         {
             _logger.LogError(
@@ -59,5 +76,3 @@ public class DeleteMenuItem
         }
     }
 }
-
-
