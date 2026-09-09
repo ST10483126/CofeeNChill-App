@@ -1,70 +1,36 @@
-using Azure.Data.Tables;
-using CoffeeNChill.Models;
+
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace CoffeeNChill;
 
 public class CofeeNChillFunction
 {
-    private readonly TableClient _tableClient;
     private readonly ILogger<CofeeNChillFunction> _logger;
 
-    public CofeeNChillFunction(
-        TableClient tableClient,
-        ILogger<CofeeNChillFunction> logger)
+    public CofeeNChillFunction(ILogger<CofeeNChillFunction> logger)
     {
-        _tableClient = tableClient;
         _logger = logger;
     }
 
-    [Function("CreateMenuItem")]
-    public async Task<IActionResult> CreateMenuItem(
+    [Function("CofeeNChillFunction")]
+    public async Task<IActionResult> Run(
         [HttpTrigger(
             AuthorizationLevel.Anonymous,
-            "post",
-            Route = "menu")]
+            "get",
+            "post")]
         HttpRequest req)
     {
-        try
-        {
-            var menuItem = await JsonSerializer.DeserializeAsync<MenuItemEntity>(
-                req.Body,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+        _logger.LogInformation(
+            "C# HTTP trigger function processed a request.");
 
-            if (menuItem == null)
-            {
-                return new BadRequestObjectResult("Invalid menu item data.");
-            }
+        await Task.CompletedTask;
 
-            if (string.IsNullOrWhiteSpace(menuItem.PartitionKey) ||
-                string.IsNullOrWhiteSpace(menuItem.RowKey) ||
-                string.IsNullOrWhiteSpace(menuItem.Name))
-            {
-                return new BadRequestObjectResult(
-                    "PartitionKey, RowKey and Name are required.");
-            }
-
-            await _tableClient.AddEntityAsync(menuItem);
-
-            _logger.LogInformation(
-                "Menu item {RowKey} was created.",
-                menuItem.RowKey);
-
-            return new OkObjectResult(
-                "Menu item created successfully.");
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error creating menu item.");
-
-            return new StatusCodeResult(500);
-        }
+        return new OkObjectResult(
+            "Welcome to Azure Functions!");
     }
 }
+
