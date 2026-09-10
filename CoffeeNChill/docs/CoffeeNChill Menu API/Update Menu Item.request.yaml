@@ -1,0 +1,21 @@
+$kind: http-request
+url: http://localhost:7169/api/menu/Cold%20Drinks/DRK-002
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"price\": 45.00,\r
+
+    \    \"isAvailable\": false\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });"
+    language: text/javascript
+order: 4000

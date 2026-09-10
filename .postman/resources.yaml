@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: 7fb3380b-9ae4-41d4-898d-3dd3572b7230
+
+localResources:
+  collections:
+    - ../CoffeeNChill/docs/CoffeeNChill Menu API
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../CoffeeNChill/docs/CoffeeNChill Menu API: 0875332f-b507-413e-9759-92f07b04c057

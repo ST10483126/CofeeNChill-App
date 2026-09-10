@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:7169/api/menu/Hot%20Drinks/COF-005
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });"
+    language: text/javascript
+order: 5000
