@@ -68,3 +68,26 @@ The CoffeeNChill Docker images are publicly available on Docker Hub.
 docker pull perihannaoz23/coffeenchill-functions:v1.0
 docker pull perihannaoz23/coffeenchill-azurite:v1.0
 ```
+## Blob Storage Verification
+
+The document functions were tested using the `staff-docs` Blob container running in Azurite.
+
+### Upload a Document
+
+```powershell
+curl.exe -X POST -F "file=@..\CoffeeNChill Barista Recipe Handbook.pdf;type=application/pdf" http://localhost:7071/api/documents/upload
+```
+
+### List Documents
+
+```powershell
+Invoke-RestMethod http://localhost:7071/api/documents | Format-Table
+```
+
+### Download a Document
+
+```powershell
+Invoke-WebRequest -Uri "http://localhost:7071/api/documents/download/CoffeeNChill%20Barista%20Recipe%20Handbook.pdf" -OutFile "$env:TEMP\CoffeeNChill-download-test.pdf"
+```
+
+The upload, list and download endpoints were successfully tested against local Azurite Blob Storage.
