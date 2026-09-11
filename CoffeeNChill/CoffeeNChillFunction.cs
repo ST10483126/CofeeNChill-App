@@ -7,11 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace CoffeeNChill;
 
-public class CofeeNChillFunction
+public class CoffeeNChillFunction
 {
-    private readonly ILogger<CofeeNChillFunction> _logger;
+    private readonly ILogger<CoffeeNChillFunction> _logger;
 
-    public CofeeNChillFunction(ILogger<CofeeNChillFunction> logger)
+    public CoffeeNChillFunction(ILogger<CoffeeNChillFunction> logger)
     {
         _logger = logger;
     }
