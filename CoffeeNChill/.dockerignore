@@ -1,0 +1,20 @@
+# Build output folders
+**/bin/
+**/obj/
+
+# Visual Studio files
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Git files
+.git/
+.gitignore
+
+# Local settings may contain private values
+local.settings.json
+
+# System files
+.DS_Store
+Thumbs.db
