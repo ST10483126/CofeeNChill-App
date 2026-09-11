@@ -1,4 +1,4 @@
-# Build output folders
+# Build folders
 **/bin/
 **/obj/
 
@@ -10,10 +10,15 @@
 
 # Git files
 .git/
-.gitignore
+.github/
 
-# Local settings may contain private values
+# Local settings
 local.settings.json
+.env.docker
+
+# Files not needed in the Docker image
+docs/
+*.md
 
 # System files
 .DS_Store
