@@ -55,4 +55,16 @@ docker run -d --name coffeenchill-functions --network coffeenchill-network -p 70
 ```powershell
 docker ps
 ```
+## Docker Hub Images
 
+The CoffeeNChill Docker images are publicly available on Docker Hub.
+
+- [CoffeeNChill Functions Image](https://hub.docker.com/r/perihannaoz23/coffeenchill-functions)
+- [CoffeeNChill Azurite Image](https://hub.docker.com/r/perihannaoz23/coffeenchill-azurite)
+
+### Pull the Images
+
+```powershell
+docker pull perihannaoz23/coffeenchill-functions:v1.0
+docker pull perihannaoz23/coffeenchill-azurite:v1.0
+```
