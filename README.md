@@ -22,3 +22,37 @@ Open a terminal inside the `CoffeeNChill` project folder and run:
 
 docker build -t coffeenchill-functions:v1.0 .
 
+## Running the Containers
+
+Part 1 uses standalone Docker containers without Docker Compose. Both containers use the same Docker network.
+
+### Create the Docker Network
+
+```powershell
+docker network create coffeenchill-network
+```
+
+### Run the Azurite Container
+
+```powershell
+docker run -d --name coffeenchill-azurite --network coffeenchill-network -p 10000:10000 -p 10001:10001 -p 10002:10002 coffeenchill-azurite:v1.0
+```
+
+### Configure the Local Azurite Connection
+
+```powershell
+$azuriteConnection = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://coffeenchill-azurite:10000/devstoreaccount1;QueueEndpoint=http://coffeenchill-azurite:10001/devstoreaccount1;TableEndpoint=http://coffeenchill-azurite:10002/devstoreaccount1;"
+```
+
+### Run the Functions Container
+
+```powershell
+docker run -d --name coffeenchill-functions --network coffeenchill-network -p 7071:80 -e "AzureWebJobsStorage=$azuriteConnection" -e "CoffeeNChillStorageConnection=$azuriteConnection" coffeenchill-functions:v1.0
+```
+
+### Check the Running Containers
+
+```powershell
+docker ps
+```
+
