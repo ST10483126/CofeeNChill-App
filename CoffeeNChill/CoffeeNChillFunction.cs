@@ -16,7 +16,7 @@ public class CoffeeNChillFunction
         _logger = logger;
     }
 
-    [Function("CofeeNChillFunction")]
+    [Function("CoffeeNChillFunction")]
     public async Task<IActionResult> Run(
         [HttpTrigger(
             AuthorizationLevel.Anonymous,
