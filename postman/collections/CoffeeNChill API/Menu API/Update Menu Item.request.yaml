@@ -1,0 +1,21 @@
+$kind: http-request
+order: 4000
+url: '{{baseUrl}}/api/menu/Cold%20Drinks/DRK-002'
+method: PUT
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+        "price": 45.00,
+        "isAvailable": false
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });

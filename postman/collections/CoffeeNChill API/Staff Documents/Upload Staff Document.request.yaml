@@ -1,0 +1,18 @@
+$kind: http-request
+order: 2000
+url: '{{baseUrl}}/api/documents/upload'
+method: POST
+body:
+  type: formdata
+  content:
+    - key: file
+      type: file
+      src: ''
+      description: 'Select the staff document file to upload'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });

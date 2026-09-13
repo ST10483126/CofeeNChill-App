@@ -1,0 +1,25 @@
+$kind: http-request
+order: 1000
+url: '{{baseUrl}}/api/menu'
+method: POST
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+        "partitionKey": "Cold Drinks",
+        "rowKey": "DRK-002",
+        "name": "Iced Coffee",
+        "description": "Cold brewed coffee served over ice",
+        "price": 32.00,
+        "isAvailable": true
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
