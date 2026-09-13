@@ -1,0 +1,48 @@
+{
+  "info": {
+    "_postman_id": "a1d0fc86-b334-4870-820d-b67fec26fec2",
+    "name": "CofeeNChill-Local",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56980419",
+    "_collection_link": "https://go.postman.co/collection/56980419-a1d0fc86-b334-4870-820d-b67fec26fec2?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "{{baseUrl}}/menu",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response contains success message\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.message).to.contain(\"Successfully added\");\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/menu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

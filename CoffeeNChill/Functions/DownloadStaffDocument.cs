@@ -14,11 +14,12 @@ public class DownloadStaffDocument
     private readonly ILogger<DownloadStaffDocument> _logger;
     private readonly string _connectionString;
 
-    //  Injects the logger and retrieves the storage connection string from environment settings
+    // Injects the logger and retrieves the storage connection string from environment settings
     public DownloadStaffDocument(ILogger<DownloadStaffDocument> logger)
     {
         _logger = logger;
-        _connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+        _connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage")
+            ?? "UseDevelopmentStorage=true";
     }
 
     [Function("DownloadStaffDocument")]

@@ -7,6 +7,8 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using System.Collections.Generic;
+
 namespace CoffeeNChill.Functions;
 
 public class ListStaffDocuments
@@ -18,7 +20,8 @@ public class ListStaffDocuments
     public ListStaffDocuments(ILogger<ListStaffDocuments> logger)
     {
         _logger = logger;
-        _connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+        _connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage")
+            ?? "UseDevelopmentStorage=true";
     }
 
     [Function("ListStaffDocuments")]
