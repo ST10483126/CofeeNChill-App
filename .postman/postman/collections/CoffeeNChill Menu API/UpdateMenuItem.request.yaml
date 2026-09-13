@@ -1,0 +1,19 @@
+$kind: http-request
+name: http://localhost:7169/api/menu/Pastries/PAS-001
+description: UpdateMenuItem
+url: http://localhost:7169/api/menu/Pastries/PAS-001
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"Name\": \"Almond Croissant\",\r
+
+    \    \"Description\": \"Flaky butter croissant filled with sweet almond frangipane - Now Freshly Baked!\",\r
+
+    \    \"Price\": 37.00,\r
+
+    \    \"IsAvailable\": true\r
+
+    }\r\n"
+order: 4137894871712571

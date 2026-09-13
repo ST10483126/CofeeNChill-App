@@ -1,0 +1,14 @@
+$kind: http-request
+description: UpdateMenuItem
+url: http://localhost:7169/api/documents/upload
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src:
+        - /C:/Users/emeris/source/repos/CoffeeNChill/Cleaning and Equipment guide.pdf
+      description: ""
+      disabled: false
+order: 4502645760914137

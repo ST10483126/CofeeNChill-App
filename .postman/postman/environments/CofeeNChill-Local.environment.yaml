@@ -1,0 +1,4 @@
+name: CofeeNChill-Local
+values:
+  - key: baseUrl
+    value: 'http://localhost:7169/api'
