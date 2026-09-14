@@ -1,0 +1,22 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/menu"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"PartitionKey\": \"Hot Drinks\",\r
+
+    \    \"RowKey\": \"HOT-004\",\r
+
+    \    \"Name\": \"Mocha Latte\",\r
+
+    \    \"Description\": \"Rich espresso combined with chocolate sauce and steamed milk\",\r
+
+    \    \"Price\": 45.50,\r
+
+    \    \"IsAvailable\": true\r
+
+    }\r\n"
+order: 4503580909741941

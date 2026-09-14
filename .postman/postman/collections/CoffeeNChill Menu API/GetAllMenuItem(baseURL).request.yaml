@@ -1,0 +1,8 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/menu"
+method: GET
+body:
+  type: json
+  content: ""
+order: 4503595256049867
