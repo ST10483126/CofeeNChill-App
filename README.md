@@ -167,13 +167,9 @@ Both images use the `v1.0` tag.
 
 ## Postman Testing
 
-The Postman files are stored in:
+The complete Postman tests are stored in the `.postman` folder.
 
-```text
-postman/collections/CoffeeENChill API/
-```
-
-Before running the collection, select the `CoffeeENChill Local` environment.
+Before running the tests, select the `CoffeeENChill Local` environment.
 
 Use the correct base URL:
 
