@@ -15,7 +15,7 @@ CoffeeNChill is an Azure Functions project built with C# and .NET. It uses Azuri
 
 ## Video Demonstration
 
-[Watch the project demonstration on YouTube](YOUTUBE LINKKK)
+[Watch the project demonstration on YouTube]( https://youtu.be/p3FRKoh4G00 )
 
 
 
@@ -167,7 +167,7 @@ Both images use the `v1.0` tag.
 
 ## Postman Testing
 
-The complete Postman tests are stored in the `.postman` folder.
+The complete Postman tests are stored in the `postman` folder.
 
 Before running the tests, select the `CoffeeENChill Local` environment.
 
