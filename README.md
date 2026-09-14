@@ -187,10 +187,36 @@ curl.exe -X POST -F "file=@..\CoffeeNChill Barista Recipe Handbook.pdf;type=appl
 Invoke-RestMethod http://localhost:7071/api/documents | Format-Table
 ```
 
-### Download a Document
+Download a Document
 
 ```powershell
 Invoke-WebRequest -Uri "http://localhost:7071/api/documents/download/CoffeeNChill%20Barista%20Recipe%20Handbook.pdf" -OutFile "$env:TEMP\CoffeeNChill-download-test.pdf"
 ```
 
 The upload, list and download endpoints were successfully tested against local Azurite Blob Storage.
+
+--Postman Collection and Automated Testing--
+
+The API collection is structured using Postman's YAML-based workspace files located under `postman/collections/CoffeeENChill API/`.
+
+--Execution Flow and Dynamic Variables
+
+To prevent `404 Not Found` errors during end-to-end automated testing—specifically between creation and deletion phases—the `POST` request dynamically captures and sets collection-level variables:
+
+* `{{partitionKey}}` (e.g., `"Cold Drinks"`)
+* `{{rowKey}}` (e.g., `"DRK-002"`)
+
+These variables are referenced dynamically inside the `DELETE` and `PUT` request URLs (e.g., `{{baseUrl}}/api/menu/{{partitionKey}}/{{rowKey}}`).
+
+--How to Run the Collection in VS Code
+
+1. Open the Postman extension panel in VS Code.
+2. Select your environment: CoffeeENChill Local (`baseUrl` configured to `http://localhost:7169`).
+3. Right-click the CoffeeENChill API collection in the sidebar and select Run collection.
+4. In the Collection Runner settings:
+* Ensure "Stop run if an error occurs" is unchecked so that cleanup and deletion steps can execute completely even if an assertion triggers.
+* Click Start run.
+
+
+5. Inspect the Test Results tab to verify that all automated `pm.test` assertions return `200 OK` or `204 No Content` green status flags.
+
