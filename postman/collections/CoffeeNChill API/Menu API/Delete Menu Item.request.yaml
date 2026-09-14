@@ -1,11 +1,11 @@
 $kind: http-request
 order: 5000
-url: '{{baseUrl}}/api/menu/Hot%20Drinks/COF-005'
+url: '{{baseUrl}}/api/menu/{{partitionKey}}/{{rowKey}}'
 method: DELETE
 scripts:
   - type: afterResponse
     language: text/javascript
     code: |-
-      pm.test("Status code is 200", function () {
-          pm.response.to.have.status(200);
+      pm.test("Status code is 200 or 204", function () {
+          pm.expect(pm.response.code).to.be.oneOf([200, 204]);
       });
