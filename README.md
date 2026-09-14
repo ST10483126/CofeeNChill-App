@@ -194,3 +194,9 @@ To run the tests in VS Code:
 - **Cheyanne Chetty:** Menu Management API and menu functions
 - **Uminathi Mthembu:** Postman collection and API testing
 - **Perihan Ozcanan:** Docker setup, Docker networking and Docker Hub images
+  
+- ## References
+- Microsoft (2026). *Azure Functions documentation*. Available at: https://learn.microsoft.com/azure/azure-functions/ (Accessed: 14 September 2026).
+- Microsoft (2026). *Use Azurite for local Azure Storage development*. Available at: https://learn.microsoft.com/azure/storage/common/storage-use-azurite (Accessed: 14 September 2026).
+- Docker (2026). *Multi-stage builds*. Available at: https://docs.docker.com/build/building/multi-stage/ (Accessed: 14 September 2026).
+- Postman (2026). *Writing tests*. Available at: https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/ (Accessed: 14 September 2026).
