@@ -1,3 +1,106 @@
+## Menu Management API
+
+The Menu Management API was developed using **Azure Functions** and **Azurite** for local Azure Storage emulation.
+
+### Implemented Features
+
+* Developed HTTP-triggered functions for menu management:
+
+  * `POST /api/menu` – Create a menu item
+  * `GET /api/menu` – Retrieve all menu items
+  * `GET /api/menu/category/{category}` – Retrieve menu items by category
+  * `PUT /api/menu/{category}/{id}` – Update the price and availability of a menu item
+  * `DELETE /api/menu/{category}/{id}` – Delete a menu item
+* Integrated the functions with **Azurite** for local Azure Table Storage.
+* Implemented DTOs to separate API data transfer from the Azure Table entity model.
+* Added input validation for required fields and invalid prices.
+* Added error handling for:
+
+  * `400 Bad Request`
+  * `404 Not Found`
+  * `409 Conflict`
+  * `500 Internal Server Error`
+* Implemented category-based filtering for menu items.
+* Tested the Menu API endpoints using **Postman**.
+
+### Contribution
+
+**Cheyanne Chetty – Menu Management API**
+
+Responsible for developing the Menu HTTP Functions, including CRUD operations, category filtering, DTO mapping, input validation, error handling, and integration with Azurite for local Azure Table Storage.
+
+## Setup and Run Instructions
+
+### Prerequisites
+
+Before running the CoffeeNChill project, ensure the following are installed:
+
+* Visual Studio
+* .NET SDK
+* Docker Desktop
+* Azurite
+* Postman
+
+### 1. Clone the Repository
+
+Clone the CoffeeNChill repository from GitHub and open the solution in Visual Studio.
+
+```bash
+git clone <repository-url>
+```
+
+### 2. Start Azurite
+
+Start the Azurite storage emulator using Docker Desktop.
+
+The project uses Azurite to emulate Azure Storage services locally during development.
+
+### 3. Configure Local Settings
+
+Create a `local.settings.json` file in the Functions project if one is not already present.
+
+```json
+{
+  "IsEncrypted": false,
+  "Values": {
+    "CoffeeNChillStorageConnection": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+  }
+}
+```
+
+> **Note:** `local.settings.json` should not be committed to GitHub if it contains local or sensitive configuration.
+
+### 4. Run the Azure Functions Project
+
+Open the CoffeeNChill project in Visual Studio and run the project.
+
+The Azure Functions host will start locally. The Menu API is available at:
+
+```text
+http://localhost:7169/api/menu
+```
+
+### 5. Test the API Using Postman
+
+Open the CoffeeNChill Menu API Postman collection and test the available endpoints:
+
+```text
+POST   /api/menu
+GET    /api/menu
+GET    /api/menu/category/{category}
+PUT    /api/menu/{category}/{id}
+DELETE /api/menu/{category}/{id}
+```
+
+The API communicates with Azurite to store and retrieve menu data locally.
+
+### 6. Verify the Application
+
+Use Postman to create, retrieve, update, and delete menu items. Successful responses confirm that the Azure Functions application is running and communicating with the local Azurite storage emulator.
+
+
+
 # cldv6212-g2-2026-cldv6212-poe-st10483126
 
 
