@@ -7,12 +7,31 @@ body:
   content:
     - key: file
       type: file
-      src: ''
+      src: '{{uploadFilePath}}'
       description: 'Select the staff document file to upload'
 scripts:
   - type: afterResponse
     language: text/javascript
     code: |-
-      pm.test("Status code is 200", function () {
-          pm.response.to.have.status(200);
+      pm.test("Status code is 200 or 201", function () {
+          pm.expect(pm.response.code).to.be.oneOf([200, 201]);
       });
+
+      // Save the uploaded file name so Download Staff Document can use it
+      // The API returns plain text on success, so extract the filename from the
+      // uploadFilePath environment variable as a reliable fallback
+      try {
+          var jsonData = pm.response.json();
+          if (jsonData && (jsonData.fileName || jsonData.name || jsonData.blobName)) {
+              pm.environment.set("uploadedFileName", jsonData.fileName || jsonData.name || jsonData.blobName);
+          } else {
+              var filePath = pm.environment.get("uploadFilePath") || "";
+              var fileName = filePath.replace(/\\/g, "/").split("/").pop();
+              pm.environment.set("uploadedFileName", fileName);
+          }
+      } catch (e) {
+          // Response is plain text — derive filename from uploadFilePath
+          var filePath = pm.environment.get("uploadFilePath") || "";
+          var fileName = filePath.replace(/\\/g, "/").split("/").pop();
+          pm.environment.set("uploadedFileName", fileName);
+      }

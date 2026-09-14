@@ -2,3 +2,9 @@ name: CoffeeNChill Local
 values:
   - key: baseUrl
     value: ''
+  - key: uploadFilePath
+    value: ''
+  - key: uploadedFileName
+    value: ''
+  - key: newRowKey
+    value: ''

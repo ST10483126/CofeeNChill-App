@@ -1,6 +1,6 @@
 $kind: http-request
 order: 5000
-url: '{{baseUrl}}/api/menu/{{partitionKey}}/{{rowKey}}'
+url: '{{baseUrl}}/api/menu/{{createdPartitionKey}}/{{createdRowKey}}'
 method: DELETE
 scripts:
   - type: afterResponse
@@ -9,3 +9,7 @@ scripts:
       pm.test("Status code is 200 or 204", function () {
           pm.expect(pm.response.code).to.be.oneOf([200, 204]);
       });
+
+      // Clean up the variables after deletion
+      pm.environment.unset("createdPartitionKey");
+      pm.environment.unset("createdRowKey");

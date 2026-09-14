@@ -1,3 +1,4 @@
 $kind: collection
 name: CoffeeNChill API
 description: 'API collection for the CoffeeNChill Azure Functions app. Covers Menu management and Staff Documents.'
+

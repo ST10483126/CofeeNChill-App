@@ -1,8 +1,15 @@
 $kind: http-request
 order: 3000
-url: '{{baseUrl}}/api/documents/download/{{fileName}}'
+url: '{{baseUrl}}/api/documents/download/{{uploadedFileName}}'
 method: GET
 scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      // Ensure uploadedFileName is set before attempting download
+      if (!pm.environment.get("uploadedFileName")) {
+          pm.environment.set("uploadedFileName", "placeholder.pdf");
+      }
   - type: afterResponse
     language: text/javascript
     code: |-

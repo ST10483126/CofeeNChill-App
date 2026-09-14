@@ -10,16 +10,41 @@ body:
   content: |-
     {
         "partitionKey": "Cold Drinks",
-        "rowKey": "DRK-002",
+        "rowKey": "{{newRowKey}}",
         "name": "Iced Coffee",
         "description": "Cold brewed coffee served over ice",
         "price": 32.00,
         "isAvailable": true
     }
 scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      // Generate a unique rowKey using the current timestamp
+      var uniqueRowKey = "DRK-" + Date.now();
+      pm.environment.set("newRowKey", uniqueRowKey);
   - type: afterResponse
     language: text/javascript
     code: |-
-      pm.test("Status code is 200", function () {
-          pm.response.to.have.status(200);
+      pm.test("Status code is 200 or 201", function () {
+          pm.expect(pm.response.code).to.be.oneOf([200, 201]);
       });
+
+      // Save partitionKey and rowKey so Delete Menu Item can use them
+      // The API returns plain text, so we read the values from the environment
+      // (set by the pre-request script) rather than parsing the response body
+      try {
+          var jsonData = pm.response.json();
+          if (jsonData && jsonData.partitionKey) {
+              pm.environment.set("createdPartitionKey", jsonData.partitionKey);
+              pm.environment.set("createdRowKey", jsonData.rowKey);
+          } else {
+              pm.environment.set("createdPartitionKey", "Cold Drinks");
+              pm.environment.set("createdRowKey", pm.environment.get("newRowKey"));
+          }
+      } catch (e) {
+          // Response is plain text — fall back to the pre-request values
+          pm.environment.set("createdPartitionKey", "Cold Drinks");
+          pm.environment.set("createdRowKey", pm.environment.get("newRowKey"));
+      }
+      pm.environment.unset("newRowKey");
