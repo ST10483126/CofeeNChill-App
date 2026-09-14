@@ -15,7 +15,7 @@ CoffeeNChill is an Azure Functions project built with C# and .NET. It uses Azuri
 
 ## Video Demonstration
 
-[Watch the project demonstration on YouTube]( https://youtu.be/p3FRKoh4G00 )
+[Watch the project demonstration on YouTube] (https://youtu.be/-Ooi7KSFIgY) 
 
 
 
