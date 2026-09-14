@@ -1,0 +1,23 @@
+$kind: http-request
+name: http://localhost:7169/api/menu
+description: ""
+url: http://localhost:7169/api/menu
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"PartitionKey\": \"Pastries\",\r
+
+    \    \"RowKey\": \"PAS-002\",\r
+
+    \    \"Name\": \"Almond Croissant\",\r
+
+    \    \"Description\": \"Flaky butter croissant filled with sweet almond frangipane\",\r
+
+    \    \"Price\": 35.00,\r
+
+    \    \"IsAvailable\": false\r
+
+    }\r\n"
+order: 2256922590083968

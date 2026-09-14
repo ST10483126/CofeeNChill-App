@@ -1,0 +1,22 @@
+$kind: http-request
+description: ""
+url: http://localhost:7169/api/menu/category/Hot%20Drinks
+method: GET
+body:
+  type: json
+  content: "{\r
+
+    \    \"PartitionKey\": \"Pastries\",\r
+
+    \    \"RowKey\": \"PAS-002\",\r
+
+    \    \"Name\": \"Almond Croissant\",\r
+
+    \    \"Description\": \"Flaky butter croissant filled with sweet almond frangipane\",\r
+
+    \    \"Price\": 35.00,\r
+
+    \    \"IsAvailable\": false\r
+
+    }\r\n"
+order: 4031385879319112

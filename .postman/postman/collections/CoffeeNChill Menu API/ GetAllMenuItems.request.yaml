@@ -1,0 +1,9 @@
+$kind: http-request
+name: http://localhost:7169/api/menu
+description: ""
+url: http://localhost:7169/api/menu
+method: GET
+body:
+  type: json
+  content: ""
+order: 1165945772898328
