@@ -1,0 +1,14 @@
+$kind: http-request
+description: UpdateMenuItem
+url: http://localhost:7169/api/documents/upload
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src:
+        - /C:/Users/emeris/source/repos/CoffeeNChill/CoffeeNChill Barista Recipe Handbook.pdf
+      description: Recipe Handbook
+      disabled: false
+order: 4503159314791772

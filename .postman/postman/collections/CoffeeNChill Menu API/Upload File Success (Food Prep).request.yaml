@@ -1,0 +1,14 @@
+$kind: http-request
+description: UpdateMenuItem
+url: http://localhost:7169/api/documents/upload
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src:
+        - /C:/Users/emeris/source/repos/CoffeeNChill/Food preperation guide.pdf
+      description: Food Prep Guide
+      disabled: false
+order: 4503444191723808

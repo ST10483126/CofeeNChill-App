@@ -1,0 +1,14 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/documents/upload"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src:
+        - /C:/Users/emeris/source/repos/CoffeeNChill/OPENING AND CLOSING CHECKLIST.pdf
+      description: Opening and closing Checklist
+      disabled: false
+order: 4503559931659604

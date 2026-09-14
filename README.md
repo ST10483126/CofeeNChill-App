@@ -1,133 +1,126 @@
-## Menu Management API
+# CoffeeNChill API – Part 1
 
-The Menu Management API was developed using **Azure Functions** and **Azurite** for local Azure Storage emulation.
+CoffeeNChill is an Azure Functions project built with C# and .NET. It uses Azurite to run Azure Table Storage and Blob Storage locally.
 
-### Implemented Features
+## Group Members
 
-* Developed HTTP-triggered functions for menu management:
+- Cheyanne Chetty
+- Matthias Kalonji
+- Uminathi Mthembu
+- Perihan Ozcanan
 
-  * `POST /api/menu` – Create a menu item
-  * `GET /api/menu` – Retrieve all menu items
-  * `GET /api/menu/category/{category}` – Retrieve menu items by category
-  * `PUT /api/menu/{category}/{id}` – Update the price and availability of a menu item
-  * `DELETE /api/menu/{category}/{id}` – Delete a menu item
-* Integrated the functions with **Azurite** for local Azure Table Storage.
-* Implemented DTOs to separate API data transfer from the Azure Table entity model.
-* Added input validation for required fields and invalid prices.
-* Added error handling for:
+## Repository
 
-  * `400 Bad Request`
-  * `404 Not Found`
-  * `409 Conflict`
-  * `500 Internal Server Error`
-* Implemented category-based filtering for menu items.
-* Tested the Menu API endpoints using **Postman**.
+[CoffeeNChill GitHub Repository](https://github.com/EMKNDW/cldv6212-g2-2026-cldv6212-poe-st10483126)
 
-### Contribution
+## Video Demonstration
 
-**Cheyanne Chetty – Menu Management API**
+[Watch the project demonstration on YouTube](YOUTUBE LINKKK)
 
-Responsible for developing the Menu HTTP Functions, including CRUD operations, category filtering, DTO mapping, input validation, error handling, and integration with Azurite for local Azure Table Storage.
 
-## Setup and Run Instructions
 
-### Prerequisites
+## Project Features
 
-Before running the CoffeeNChill project, ensure the following are installed:
+The project includes:
 
-* Visual Studio
-* .NET SDK
-* Docker Desktop
-* Azurite
-* Postman
+- Menu management using Azure Table Storage
+- Staff document management using Azure Blob Storage
+- Local Azure Storage using Azurite
+- Postman API testing
+- Standalone Docker containers
+- Public Docker Hub images
+
+## API Endpoints
+
+### Menu Management
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/menu` | Create a menu item |
+| `GET` | `/api/menu` | Get all menu items |
+| `GET` | `/api/menu/category/{category}` | Get items by category |
+| `PUT` | `/api/menu/{category}/{id}` | Update a menu item |
+| `DELETE` | `/api/menu/{category}/{id}` | Delete a menu item |
+
+The Menu API includes category filtering, DTO mapping, input validation and error handling.
+
+### Staff Documents
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/documents/upload` | Upload a staff document |
+| `GET` | `/api/documents` | List uploaded documents |
+| `GET` | `/api/documents/download/{fileName}` | Download a document |
+
+The documents are stored in the `staff-docs` Blob container in Azurite.
+
+## Requirements
+
+Install the following before running the project:
+
+- Visual Studio
+- .NET SDK
+- Docker Desktop
+- Postman
+- Git
+
+## Running the Project Locally
 
 ### 1. Clone the Repository
 
-Clone the CoffeeNChill repository from GitHub and open the solution in Visual Studio.
-
-```bash
-git clone <repository-url>
+```powershell
+git clone https://github.com/EMKNDW/cldv6212-g2-2026-cldv6212-poe-st10483126.git
 ```
 
-### 2. Start Azurite
+### 2. Create the Local Settings File
 
-Start the Azurite storage emulator using Docker Desktop.
-
-The project uses Azurite to emulate Azure Storage services locally during development.
-
-### 3. Configure Local Settings
-
-Create a `local.settings.json` file in the Functions project if one is not already present.
+Create a `local.settings.json` file inside the `CoffeeNChill` project folder:
 
 ```json
 {
   "IsEncrypted": false,
   "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "CoffeeNChillStorageConnection": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
   }
 }
 ```
 
-> **Note:** `local.settings.json` should not be committed to GitHub if it contains local or sensitive configuration.
+The `local.settings.json` file should not be uploaded to GitHub.
 
-### 4. Run the Azure Functions Project
+### 3. Run the Project
 
-Open the CoffeeNChill project in Visual Studio and run the project.
+Open the solution in Visual Studio and run the `CoffeeNChill` project.
 
-The Azure Functions host will start locally. The Menu API is available at:
-
-```text
-http://localhost:7169/api/menu
-```
-
-### 5. Test the API Using Postman
-
-Open the CoffeeNChill Menu API Postman collection and test the available endpoints:
+The local Functions URL used during testing was:
 
 ```text
-POST   /api/menu
-GET    /api/menu
-GET    /api/menu/category/{category}
-PUT    /api/menu/{category}/{id}
-DELETE /api/menu/{category}/{id}
+http://localhost:7169
 ```
 
-The API communicates with Azurite to store and retrieve menu data locally.
+The port may be different depending on the Visual Studio settings. Check the terminal after the Functions host starts.
 
-### 6. Verify the Application
+## Docker Setup
 
-Use Postman to create, retrieve, update, and delete menu items. Successful responses confirm that the Azure Functions application is running and communicating with the local Azurite storage emulator.
+The multi-stage Dockerfile is located at:
 
+```text
+CoffeeNChill/Dockerfile
+```
 
-
-# cldv6212-g2-2026-cldv6212-poe-st10483126
-
-
-
-\## Docker Build
-
-
-
-The Azure Functions application is packaged as a standalone Docker image using the official .NET 10 SDK and Azure Functions isolated runtime.
-
-
-
-\### Build the Functions Image
-
-
-
-Open a terminal inside the `CoffeeNChill` project folder and run:
-
-
+Open PowerShell inside the `CoffeeNChill` folder and build the Functions image:
 
 ```powershell
+docker build -t perihannaoz23/coffeenchill-functions:v1.0 .
+```
 
-docker build -t coffeenchill-functions:v1.0 .
+### Pull the Docker Hub Images
 
-## Running the Containers
-
-Part 1 uses standalone Docker containers without Docker Compose. Both containers use the same Docker network.
+```powershell
+docker pull perihannaoz23/coffeenchill-functions:v1.0
+docker pull perihannaoz23/coffeenchill-azurite:v1.0
+```
 
 ### Create the Docker Network
 
@@ -138,10 +131,10 @@ docker network create coffeenchill-network
 ### Run the Azurite Container
 
 ```powershell
-docker run -d --name coffeenchill-azurite --network coffeenchill-network -p 10000:10000 -p 10001:10001 -p 10002:10002 coffeenchill-azurite:v1.0
+docker run -d --name coffeenchill-azurite --network coffeenchill-network -p 10000:10000 -p 10001:10001 -p 10002:10002 perihannaoz23/coffeenchill-azurite:v1.0
 ```
 
-### Configure the Local Azurite Connection
+### Set the Azurite Connection
 
 ```powershell
 $azuriteConnection = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://coffeenchill-azurite:10000/devstoreaccount1;QueueEndpoint=http://coffeenchill-azurite:10001/devstoreaccount1;TableEndpoint=http://coffeenchill-azurite:10002/devstoreaccount1;"
@@ -150,47 +143,60 @@ $azuriteConnection = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1
 ### Run the Functions Container
 
 ```powershell
-docker run -d --name coffeenchill-functions --network coffeenchill-network -p 7071:80 -e "AzureWebJobsStorage=$azuriteConnection" -e "CoffeeNChillStorageConnection=$azuriteConnection" coffeenchill-functions:v1.0
+docker run -d --name coffeenchill-functions --network coffeenchill-network -p 7071:80 -e "AzureWebJobsStorage=$azuriteConnection" -e "CoffeeNChillStorageConnection=$azuriteConnection" perihannaoz23/coffeenchill-functions:v1.0
 ```
 
-### Check the Running Containers
+Check the containers:
 
 ```powershell
 docker ps
 ```
+
+When running through Docker, the API base URL is:
+
+```text
+http://localhost:7071
+```
+
 ## Docker Hub Images
 
-The CoffeeNChill Docker images are publicly available on Docker Hub.
+- [CoffeeNChill Functions](https://hub.docker.com/r/perihannaoz23/coffeenchill-functions)
+- [CoffeeNChill Azurite](https://hub.docker.com/r/perihannaoz23/coffeenchill-azurite)
 
-- [CoffeeNChill Functions Image](https://hub.docker.com/r/perihannaoz23/coffeenchill-functions)
-- [CoffeeNChill Azurite Image](https://hub.docker.com/r/perihannaoz23/coffeenchill-azurite)
+Both images use the `v1.0` tag.
 
-### Pull the Images
+## Postman Testing
 
-```powershell
-docker pull perihannaoz23/coffeenchill-functions:v1.0
-docker pull perihannaoz23/coffeenchill-azurite:v1.0
-```
-## Blob Storage Verification
+The complete Postman tests are stored in the `.postman` folder.
 
-The document functions were tested using the `staff-docs` Blob container running in Azurite.
+Before running the tests, select the `CoffeeENChill Local` environment.
 
-### Upload a Document
+Use the correct base URL:
 
-```powershell
-curl.exe -X POST -F "file=@..\CoffeeNChill Barista Recipe Handbook.pdf;type=application/pdf" http://localhost:7071/api/documents/upload
-```
+- Visual Studio: `http://localhost:7169`
+- Docker: `http://localhost:7071`
 
-### List Documents
+The collection uses `partitionKey` and `rowKey` variables for the update and delete requests.
 
-```powershell
-Invoke-RestMethod http://localhost:7071/api/documents | Format-Table
-```
+To run the tests in VS Code:
 
-### Download a Document
+1. Open the Postman extension.
+2. Select the `CoffeeENChill Local` environment.
+3. Right-click the collection and select **Run collection**.
+4. Start the collection run.
+5. Check the test results.
 
-```powershell
-Invoke-WebRequest -Uri "http://localhost:7071/api/documents/download/CoffeeNChill%20Barista%20Recipe%20Handbook.pdf" -OutFile "$env:TEMP\CoffeeNChill-download-test.pdf"
-```
+## Contributions
 
-The upload, list and download endpoints were successfully tested against local Azurite Blob Storage.
+## Contributions
+
+- **Matthias Kalonji:** Project setup, initial development and Blob Storage integration
+- **Cheyanne Chetty:** Menu Management API and menu functions
+- **Uminathi Mthembu:** Postman collection and API testing
+- **Perihan Ozcanan:** Docker setup, Docker networking and Docker Hub images
+  
+- ## References
+- Microsoft (2026). *Azure Functions documentation*. Available at: https://learn.microsoft.com/azure/azure-functions/ (Accessed: 14 September 2026).
+- Microsoft (2026). *Use Azurite for local Azure Storage development*. Available at: https://learn.microsoft.com/azure/storage/common/storage-use-azurite (Accessed: 14 September 2026).
+- Docker (2026). *Multi-stage builds*. Available at: https://docs.docker.com/build/building/multi-stage/ (Accessed: 14 September 2026).
+- Postman (2026). *Writing tests*. Available at: https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/ (Accessed: 14 September 2026).
